@@ -28,4 +28,5 @@ lib/
            widgets/  
               auth_card.dart
     root.dart
+    splash.dart
     main.dart
