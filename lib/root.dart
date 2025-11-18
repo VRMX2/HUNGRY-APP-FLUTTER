@@ -34,6 +34,7 @@ class _RootState extends State<Root> {
     return Scaffold(
       body: PageView(
         controller: controller,
+        physics: NeverScrollableScrollPhysics(),
         children: screens,
       ),
 
@@ -42,7 +43,6 @@ class _RootState extends State<Root> {
         decoration: BoxDecoration(
           color: AppColors.primary,
           borderRadius: BorderRadius.circular(15),
-
         ),
         child: BottomNavigationBar(
           currentIndex: currentScreen,
