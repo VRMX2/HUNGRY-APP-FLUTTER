@@ -31,18 +31,39 @@ class _HomeViewState extends State<HomeView> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: [
-            /// Appbar
+            /// Pinned header and search
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _HeaderDelegate(
+                minHeight: 232,
+                maxHeight: 232,
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  child: SafeArea(
+                    bottom: false,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        UserHeader(),
+                        Gap(10),
+                        CustomSearchBar(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            /// category
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
-                    Gap(75),
-                    UserHeader(),
-                    Gap(25),
-                    CustomSearchBar(),
                     Gap(25),
                     CategoryField(
                       category: category,
@@ -58,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
 
-            /// Grid View
+            /// GridView
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               sliver: SliverGrid(
@@ -85,5 +106,37 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+}
+
+/// Custom SliverPersistentHeaderDelegate for pinned header
+class _HeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _HeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_HeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

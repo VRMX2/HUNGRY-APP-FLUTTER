@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hungry/core/constants/app_colors.dart';
 
 import '../../../shared/custom_text.dart';
 
@@ -20,7 +22,13 @@ class CardItem extends StatelessWidget {
             Gap(10),
             CustomText(text: text,weight: FontWeight.bold,),
             CustomText(text: desc),
-            CustomText(text: '⭐️ ${rate}',weight: FontWeight.w500,),
+            Row(
+              children: [
+                CustomText(text: '⭐️ ${rate}',weight: FontWeight.w500,),
+                Spacer(),
+                Icon(CupertinoIcons.heart_fill,color: AppColors.primary,)
+              ],
+            ),
           ],
         ),
       ),

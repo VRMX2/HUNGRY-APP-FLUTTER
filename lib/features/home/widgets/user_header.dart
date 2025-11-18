@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -13,8 +14,10 @@ class UserHeader extends StatelessWidget {
     return Row(
       children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Gap(30),
             SvgPicture.asset(
               'assets/logo/logo.svg',
               color: AppColors.primary,
@@ -32,6 +35,7 @@ class UserHeader extends StatelessWidget {
         Spacer(),
         CircleAvatar(
           radius: 31,
+          child:Icon(CupertinoIcons.person,color: Colors.white,),backgroundColor: AppColors.primary,
         )
       ],
     );
